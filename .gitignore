@@ -1,0 +1,13 @@
+# Python bytecode
+*.pyc
+*.pyo
+__pycache__/
+
+# Django specific
+db.sqlite3
+
+# Media and static files
+/staticfiles/
+
+# Environment variables
+.env

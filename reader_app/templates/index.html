@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload and Verify</title>
+    <!-- Load Django static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="upload-box" id="uploadBox">
+            <p><strong>Upload PDF or Image</strong></p>
+            <p>+</p>
+            <input type="file" id="fileInput" multiple accept="image/*,.pdf" class="hidden">
+        </div>
+
+        <div class="output">
+            <textarea id="description" placeholder="Description" readonly></textarea>
+            <textarea id="verification" placeholder="Verification" readonly></textarea>
+        </div>
+
+        <button class="button" id="processBtn">Process</button>
+    </div>
+
+    <!-- Loading Modal -->
+    <div id="loadingModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="spinner"></div>
+            <p id="loadingMessage">Verifying with AI...</p>
+        </div>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

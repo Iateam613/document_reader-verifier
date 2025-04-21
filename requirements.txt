@@ -1,0 +1,6 @@
+django
+openai-agents
+python-dotenv 
+openai
+django-environ
+django-cors-headers
