@@ -32,7 +32,7 @@ def process_image(image_path):
             {
                 "role": "user",
                 "content": [
-                    { "type": "text", "text": "List all the personal information , account information from the image provided no summary and additional text" },
+                    { "type": "text", "text": "Tell me what kind of file I have provided in 20 words max" },
                     {
                         "type": "image_url",
                         "image_url": {
@@ -50,5 +50,5 @@ def process_image(image_path):
 # Example usage
 if __name__ == "__main__":
     image_path = r"C:\Users\USER\OneDrive\Documents\projects\Document-reader\sample-file\Resume1.png"
-    details = process_image(image_path)
-    print(details)
+    verification = process_image(image_path)
+    print(verification)

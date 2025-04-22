@@ -21,6 +21,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#CORS configuration
+CORS_ALLOWED_ORIGINS = [
+    "document-reader.visa26.com",  # Add your UI's URL here
+]
 
 # Application definition
 
@@ -32,6 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "reader_app",  # Custom app for document reading
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -42,6 +47,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "document_reader.urls"
@@ -69,11 +75,17 @@ WSGI_APPLICATION = "document_reader.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.dummy'
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation

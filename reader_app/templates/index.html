@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload and Verify</title>
-    <!-- Load Django static files -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
@@ -19,7 +18,7 @@
         </div>
 
         <div class="output">
-            <textarea id="description" placeholder="Description" readonly></textarea>
+            <textarea id="description" placeholder="Details" readonly></textarea>
             <textarea id="verification" placeholder="Verification" readonly></textarea>
         </div>
 
@@ -34,6 +33,7 @@
         </div>
     </div>
 
+    <!-- Point to the updated script.js -->
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 
