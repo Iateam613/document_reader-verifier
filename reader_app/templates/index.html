@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,21 +7,27 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-
 <body>
     <div class="container">
         <div class="upload-box" id="uploadBox">
             <p><strong>Upload PDF or Image</strong></p>
             <p>+</p>
-            <input type="file" id="fileInput" multiple accept="image/*,.pdf" class="hidden">
+            <input type="file" id="fileInput" accept="image/*,.pdf" class="hidden">
         </div>
+
+        <!-- Preview of uploaded image -->
+        <div id="previewContainer" class="preview-container"></div>
 
         <div class="output">
             <textarea id="description" placeholder="Details" readonly></textarea>
             <textarea id="verification" placeholder="Verification" readonly></textarea>
         </div>
 
-        <button class="button" id="processBtn">Process</button>
+        <!-- Buttons grouped and aligned left -->
+        <div class="button-group">
+            <button class="button" id="processBtn">Process</button>
+            <button class="button secondary" id="restartBtn">Restart</button>
+        </div>
     </div>
 
     <!-- Loading Modal -->
@@ -33,8 +38,6 @@
         </div>
     </div>
 
-    <!-- Point to the updated script.js -->
     <script src="{% static 'js/script.js' %}"></script>
 </body>
-
 </html>
