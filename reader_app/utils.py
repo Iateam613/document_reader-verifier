@@ -4,7 +4,6 @@ import mimetypes
 from openai import OpenAI
 
 from dotenv import load_dotenv
-import openai
 
 load_dotenv()
 
@@ -33,7 +32,26 @@ def process_details(image_path: str) -> str:
             {
                 "role": "user",
                 "content": [
-                    { "type": "text", "text": "List all the personal information , account information from the image provided no summary and additional text" },
+                                        { "type": "text", "text": """You are a high-precision OCR assistant. An image of a legal or business document follows. Please perform the following steps exactly:
+                        1. Field Detection
+                            Identify every distinct text field or label in the image (e.g., “Address,” “Date,” “Name,” etc.), even if you haven’t seen that specific document type before.
+                        2. Verbatim Extraction
+                            For each detected label, extract its value verbatim, preserving every character exactly as it appears, including:
+                                Alphabetical letters that appear before or after numbers (e.g., “A1234” → “A1234”)
+                                Punctuation, symbols, and whitespace
+                                Case sensitivity (upper/lower-case)
+                        3. Formatting
+                            Output plain text, one line per field, in the form:
+                            <Label>: <Value>
+                        4. Normalization
+                            Dates → convert to YYYY-MM-DD (but do not alter any surrounding letters if part of the field).
+                        5. Missing Fields
+                            If a detected label has no value, skip that field entirely.
+                        6. No Extra Text
+                            Do not include any commentary, summaries, or explanations—only the extracted fields in the specified format.
+                        7. Double-Check
+                            Before returning, verify that no character has been dropped or altered.
+                    """ },
                     {
                         "type": "image_url",
                         "image_url": {
