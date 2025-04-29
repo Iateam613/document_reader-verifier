@@ -6,7 +6,7 @@ This project is a **Django-based web application** designed to process, extract,
 
 ## Features
 
-- **File Upload**: Users can upload document images (e.g., PNG, JPEG).
+- **File Upload**: Users can upload document images (e.g., PNG, JPEG , PDF).
 - **OCR Processing**: Extracts text fields and their values from the uploaded document.
 - **Field Verification**: Verifies the authenticity and correctness of the extracted fields.
 - **Error Handling**: Graceful handling of invalid files or processing errors.
