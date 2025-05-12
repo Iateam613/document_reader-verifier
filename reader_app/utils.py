@@ -82,7 +82,7 @@ def image_verification(image_url: str) -> str:
     return response.choices[0].message.content
 
 
-def process_pdf(file_path: str, query: str) -> str:
+def process_pdf(file_path: str) -> str:
     """
     Process a PDF file via OpenAI.
     Uploads the PDF file and queries it for specific information.
