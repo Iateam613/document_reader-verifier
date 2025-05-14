@@ -12,6 +12,9 @@ from .utils import process_image,process_pdf
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
+def index(request):
+    return HttpResponse("Welcome to reader API!") 
+
 @csrf_exempt
 def reader(request):
     if request.method != 'POST':
