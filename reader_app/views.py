@@ -33,9 +33,11 @@ def reader(request):
             if url.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
                 # Process image URLs
                 details = process_image(url, name)
+                results = re.findall(r"```(.*?)```", str(details), re.DOTALL)
             elif url.lower().endswith('.pdf'):
                 # Process PDF URLs
                 details = process_pdf(url, name)
+                results = re.findall(r"```(.*?)```", str(details), re.DOTALL)
             else:
                 # Unsupported file type
                 logger.error("Unsupported file type. Only images and PDFs are supported.")
@@ -44,7 +46,7 @@ def reader(request):
             # Log full stack trace
             logger.exception(f"Error processing URL {url}: {e}")
 
-        return JsonResponse({'results': details})
+        return JsonResponse({'results': results})
 
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid JSON body.'}, status=400)
