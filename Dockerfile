@@ -1,4 +1,3 @@
-# Dockerfile
 
 FROM python:3.10-slim
 
@@ -13,10 +12,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
+
+RUN python -m ensurepip --upgrade || true
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 COPY . .
 
-# Set default command (collectstatic will run at runtime)
-CMD ["sh", "-c", "python manage.py && python manage.py runserver 0.0.0.0:8002"]
+EXPOSE 8002
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8020"]
