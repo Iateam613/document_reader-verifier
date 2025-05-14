@@ -17,7 +17,7 @@ OPENAI_API_KEY = env('OPENAI_API_KEY')
 SECRET_KEY = "django-insecure-gq2**)^51ji$j8-un#f75m#=i&0(12gf3bca#eyl7h=svorxya"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -114,7 +114,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+#STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
