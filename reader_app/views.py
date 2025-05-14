@@ -4,7 +4,7 @@ import logging
 import json
 
 from django.conf import settings
-from django.http import JsonResponse, HttpResponseNotAllowed
+from django.http import JsonResponse, HttpResponseNotAllowed ,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from .utils import process_image,process_pdf
