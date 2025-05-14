@@ -19,4 +19,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Set default command (collectstatic will run at runtime)
-CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8002"]
+CMD ["sh", "-c", "python manage.py && python manage.py runserver 0.0.0.0:8002"]
