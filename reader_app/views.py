@@ -4,7 +4,6 @@ import logging
 import json
 
 from django.conf import settings
-from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,9 +11,6 @@ from .utils import process_image,process_pdf
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
-
-def index(request):
-    return render(request, 'index.html')
 
 @csrf_exempt
 def reader(request):
