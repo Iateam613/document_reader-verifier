@@ -1,29 +1,22 @@
-# Use official Python image
+# Dockerfile
+
 FROM python:3.10-slim
 
-# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copy project files
 COPY . .
 
-# Collect static files (optional: only if you use Django static files)
-RUN python manage.py collectstatic --noinput
-
-# Set the default command to run the Django development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8002"]
+# Set default command (collectstatic will run at runtime)
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"]
