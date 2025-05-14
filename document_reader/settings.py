@@ -23,7 +23,7 @@ ALLOWED_HOSTS = ['*']
 
 #CORS configuration
 CORS_ALLOWED_ORIGINS = [
-    "document-reader.visa26.com",  # Add your UI's URL here
+    "https://document-reader-one.visa26.com",  # Add your UI's URL here
     "https://app.visa26.com",
 ]
 
