@@ -7,7 +7,7 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 
-from .utils import image_process_details, image_verification ,verify_pdf ,process_pdf
+from .utils import process_image,process_pdf
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -21,56 +21,30 @@ def reader(request):
         return HttpResponseNotAllowed(['POST'])
 
     try:
-        # Parse the JSON body to get the list of URLs
+        # Parse the JSON body to get the name and URL
         body = json.loads(request.body)
-        urls = body.get('urls', [])
+        name = body.get('name', 'No name provided')
+        url = body.get('url', None)
 
-        if not urls:
+        if not url:
             return JsonResponse({'error': 'No URLs provided.'}, status=400)
+        try:
+            # Check if the URL is for an image or a PDF
+            if url.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+                # Process image URLs
+                details = process_image(url, name)
+            elif url.lower().endswith('.pdf'):
+                # Process PDF URLs
+                details = process_pdf(url, name)
+            else:
+                # Unsupported file type
+                logger.error("Unsupported file type. Only images and PDFs are supported.")
+                details = {'error': 'Unsupported file type. Only images and PDFs are supported.'}
+        except Exception as e:
+            # Log full stack trace
+            logger.exception(f"Error processing URL {url}: {e}")
 
-        results = []
-
-        for url in urls:
-            try:
-                # Check if the URL is for an image or a PDF
-                if url.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
-                    # Process image URLs
-                    details = image_process_details(url)
-                    verification = image_verification(url)
-
-                    results.append({
-                        'url': url,
-                        'type': 'image',
-                        'details': details,
-                        'verification': verification,
-                    })
-                elif url.lower().endswith('.pdf'):
-                    # Process PDF URLs
-                    details = process_pdf(url)
-                    verification = verify_pdf(url)
-
-                    results.append({
-                        'url': url,
-                        'type': 'pdf',
-                        'details': details,
-                        'verification': verification,
-                    })
-                else:
-                    # Unsupported file type
-                    results.append({
-                        'url': url,
-                        'error': 'Unsupported file type. Only images and PDFs are supported.',
-                    })
-            except Exception as e:
-                # Log full stack trace
-                logger.exception(f"Error processing URL {url}")
-                results.append({
-                    'url': url,
-                    'error': str(e),
-                })
-
-        return JsonResponse({'results': results})
+        return JsonResponse({'results': details})
 
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid JSON body.'}, status=400)
-
