@@ -1,4 +1,3 @@
-
 FROM python:3.10-slim
 
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -19,6 +18,8 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+RUN python manage.py
+
 EXPOSE 8002
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8002"]
+CMD ["gunicorn", "document_reader.wsgi:application", "--bind", "0.0.0.0:8002"]
