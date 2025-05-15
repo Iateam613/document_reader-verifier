@@ -2,12 +2,19 @@ import re
 import os
 import logging
 import json
+import tempfile
+import shutil
+import requests
 
-from django.conf import settings
-from django.http import JsonResponse, HttpResponseNotAllowed ,HttpResponse
+
+from django.shortcuts import render
+from django.http import JsonResponse, HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
 
-from .utils import process_image,process_pdf
+from .utils import process_image, process_pdf
+
+from urllib3.exceptions import InsecureRequestWarning
+
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
