@@ -15,12 +15,11 @@ from .utils import process_image, process_pdf
 
 from urllib3.exceptions import InsecureRequestWarning
 
-
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 def index(request):
-    return HttpResponse("Welcome to reader API!") 
+    return render(request, 'index.html')
 
 @csrf_exempt
 def reader(request):
@@ -50,45 +49,43 @@ def reader(request):
             logger.error("No URL provided in the request.")
             return JsonResponse({'error': 'No URL provided.'}, status=400)
 
-        results = None  # Initialize results to ensure it is always defined
-
         try:
             # Check if the URL is for an image or a PDF
             if url.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
-                    # Process image URLs
-                    # Create a temporary directory
-                    temp_dir = tempfile.mkdtemp()
-                    try:
-                        # Silence only the InsecureRequestWarning
-                        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+                # Process image URLs
+                temp_dir = tempfile.mkdtemp()
+                try:
+                    # Silence only the InsecureRequestWarning
+                    requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-                        # Download the image file
-                        response = requests.get(url, stream=True, verify=False)  # Disable SSL verification for testing
-                        if response.status_code == 200:
-                            temp_file_path = os.path.join(temp_dir, "temp_image.jpg")
-                            with open(temp_file_path, "wb") as temp_file:
-                                for chunk in response.iter_content(chunk_size=8192):
-                                    temp_file.write(chunk)
+                    # Download the image file
+                    response = requests.get(url, stream=True, verify=False)  # Disable SSL verification for testing
+                    if response.status_code == 200:
+                        temp_file_path = os.path.join(temp_dir, "temp_image.jpg")
+                        with open(temp_file_path, "wb") as temp_file:
+                            for chunk in response.iter_content(chunk_size=8192):
+                                temp_file.write(chunk)
 
-                            # Process the downloaded image file
-                            results = process_image(temp_file_path, name)
-                            print(results)
+                        # Process the downloaded image file
+                        response = process_image(temp_file_path, name)
+                        json_data = json.dumps(json.loads(response))
+                        print(json_data)
 
-                            return results
-                        else:
-                            raise RuntimeError(f"Failed to download the image file. Status code: {response.status_code}")
-                    finally:
-                        # Clean up the temporary directory
-                        shutil.rmtree(temp_dir)
-                
+                        return JsonResponse(json.loads(json_data), safe=False)  # Wrap json_data in JsonResponse
+                    else:
+                        raise RuntimeError(f"Failed to download the image file. Status code: {response.status_code}")
+                finally:
+                    # Clean up the temporary directory
+                    shutil.rmtree(temp_dir)
+
             elif url.lower().endswith('.pdf'):
-                # Create a temporary folder
+                # Process PDF URLs
                 temp_dir = tempfile.mkdtemp()
                 try:
                     # Silence only the InsecureRequestWarning
                     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
                     # Download the PDF file to the temporary folder
-                    response = requests.get(url, stream=True ,verify=False)
+                    response = requests.get(url, stream=True, verify=False)
                     if response.status_code == 200:
                         temp_file_path = os.path.join(temp_dir, "temp_file.pdf")
                         with open(temp_file_path, 'wb') as temp_file:
@@ -96,8 +93,11 @@ def reader(request):
                                 temp_file.write(chunk)
 
                         # Process the downloaded PDF file
-                        results = process_pdf(temp_file_path, name)
-                        print(results)
+                        response = process_pdf(temp_file_path, name)
+                        json_data = json.dumps(json.loads(response))
+                        print(json_data)
+
+                        return JsonResponse(json.loads(json_data), safe=False)  # Wrap json_data in JsonResponse
                     else:
                         logger.error(f"Failed to download the PDF file. Status code: {response.status_code}")
                         return JsonResponse({'error': 'Failed to download the PDF file.'}, status=400)
@@ -112,8 +112,6 @@ def reader(request):
             # Log full stack trace
             logger.exception(f"Error processing URL {url}: {e}")
             return JsonResponse({'error': str(e)}, status=500)
-
-        return JsonResponse({'results': results})
 
     except Exception as e:
         logger.exception(f"Unexpected error: {e}")
