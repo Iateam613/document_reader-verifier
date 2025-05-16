@@ -1,7 +1,6 @@
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
-import mimetypes
 import base64
 
 # Load environment variables
@@ -58,7 +57,7 @@ def process_image(image_path: str, name: str) -> str:
 
                             3. Produce a single JSON response:
                             - Top-level object with two keys: `"files"` and `"fields"`.
-                            - `"files"`: an array of file-status objects as above.
+                            - `"files"`: an just a string like in the example bellow of file-status objects as above.
                             - `"fields"`: an object mapping each personal-data key to its extracted value.
                             - Do **not** include any other fields or metadata.
 
@@ -68,21 +67,19 @@ def process_image(image_path: str, name: str) -> str:
                             - Do not pretty-print (no extra newlines or comments).
                             """
                             """
-                            #### Example Output:
+                            #### NOTE Must follow Example Output:
                             ```
-                            {{
-                            "files": [
-                                {{ "isValid": true }}
-                            ],
-                            "fields": {{
-                                "firstName":  "John",
-                                "middleName": "Doe",
-                                "lastName":   "Doe",
-                                "dobDay":     "23",
-                                "dobMonth":   "9",
-                                "dobYear":    "1986"
-                            }}
-                            }}
+                            {
+                            "isValid": true,
+                            "fields": {
+                                "firstName": "HAPPY",
+                                "middleName": "",
+                                "lastName": "TRAVELER",
+                                "dobDay": "1",
+                                "dobMonth": "1",
+                                "dobYear": "1981"
+                            }
+                            }
                             ```
                             """,
                         },
@@ -150,7 +147,7 @@ def process_pdf(temp_file_path: str, name: str) -> str:
 
                             3. Produce a single JSON response:
                             - Top-level object with two keys: `"files"` and `"fields"`.
-                            - `"files"`: an array of file-status objects as above.
+                            - `"files"`: is just a string like in the example bellow of file-status objects as above.
                             - `"fields"`: an object mapping each personal-data key to its extracted value.
                             - Do **not** include any other fields or metadata.
 
@@ -162,19 +159,19 @@ def process_pdf(temp_file_path: str, name: str) -> str:
                             
                             """
                         
-                            #### Example Output:
+                            #### NOTE Must follow Example Output:
                             ```
-                            {{
-                            "isValid": true 
-                            "fields": {{
-                                "firstName":  "John",
-                                "middleName": "Doe",
-                                "lastName":   "Doe",
-                                "dobDay":     "23",
-                                "dobMonth":   "9",
-                                "dobYear":    "1986"
-                            }}
-                            }}
+                            {
+                            "isValid": true,
+                            "fields": {
+                                "firstName": "HAPPY",
+                                "middleName": "",
+                                "lastName": "TRAVELER",
+                                "dobDay": "1",
+                                "dobMonth": "1",
+                                "dobYear": "1981"
+                            }
+                            }
                             ```
                             """,
                         },
