@@ -19,7 +19,7 @@ from urllib3.exceptions import InsecureRequestWarning
 logger = logging.getLogger(__name__)
 
 def index(request):
-    return render(request, 'index.html')
+    return HttpResponse("Welcome to reader API!")  # Simple response for the root path
 
 @csrf_exempt
 def reader(request):
