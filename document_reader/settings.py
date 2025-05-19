@@ -19,11 +19,11 @@ SECRET_KEY = "django-insecure-gq2**)^51ji$j8-un#f75m#=i&0(12gf3bca#eyl7h=svorxya
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 #CORS configuration
 CORS_ALLOWED_ORIGINS = [
-    "document-reader.visa26.com",  # Add your UI's URL here
+    "https://document-reader.visa26.com",  # Add your UI's URL here
 ]
 
 # Application definition
