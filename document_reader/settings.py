@@ -24,6 +24,7 @@ ALLOWED_HOSTS = ['*']
 #CORS configuration
 CORS_ALLOWED_ORIGINS = [
     "https://document-reader.visa26.com",  # Add your UI's URL here
+    "https://app.visa26.com",
 ]
 
 # Application definition
@@ -55,8 +56,8 @@ ROOT_URLCONF = "document_reader.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],  # Directory for custom templates
-        "APP_DIRS": True,
+        "DIRS": [ ],  # Directory for custom templates
+        "APP_DIRS": False,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -123,7 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [BASE_DIR / 'reader_app' / 'static']
+STATICFILES_DIRS = [ ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
