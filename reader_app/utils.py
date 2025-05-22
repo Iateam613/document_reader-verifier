@@ -45,6 +45,7 @@ def process_image(image_path: str, name: str) -> str:
                             - Determine whether the document is acceptable for visa processing.
                             - In the output, list each file as an object with:
                                 - `"isValid"`: `true` if the document meets requirements, otherwise `false`.
+                                - `"message"`: a string with a message about the file status and the file to upload.
 
                             2. Extract applicant’s personal data:
                             - `firstName` (string)
@@ -71,6 +72,7 @@ def process_image(image_path: str, name: str) -> str:
                             ```
                             {
                             "isValid": true,
+                            "message": "Uploaded a passport image",
                             "fields": {
                                 "firstName": "HAPPY",
                                 "middleName": "",
@@ -135,6 +137,7 @@ def process_pdf(temp_file_path: str, name: str) -> str:
                             - Determine whether the document is acceptable for visa processing.
                             - In the output, list each file as an object with:
                                 - `"isValid"`: `true` if the document meets requirements, otherwise `false`.
+                                - `"message"`: a string with a message about the file status and the file to upload.
 
                             2. Extract applicant’s personal data:
                             - `firstName` (string)
@@ -163,6 +166,7 @@ def process_pdf(temp_file_path: str, name: str) -> str:
                             ```
                             {
                             "isValid": true,
+                            "message": "Uploaded a passport file",
                             "fields": {
                                 "firstName": "HAPPY",
                                 "middleName": "",
@@ -185,5 +189,3 @@ def process_pdf(temp_file_path: str, name: str) -> str:
 
     except Exception as e:
         raise RuntimeError(f"Error processing PDF file: {str(e)}")
-
-
