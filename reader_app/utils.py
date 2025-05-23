@@ -48,12 +48,10 @@ def process_image(image_path: str, name: str) -> str:
                                 - `"message"`: a string with a message about the file status and the file to upload.
 
                             2. Extract applicant’s personal data:
-                            - `firstName` (string)
-                            - `middleName` (string)
-                            - `lastName` (string)
-                            - `dobDay` (string, 1–31)
-                            - `dobMonth` (string, 1–12)
-                            - `dobYear` (string, four digits)
+                            - `first_name` (string)
+                            - `middle_name` (string)
+                            - `last_name` (string)
+                            - `dob` (string)
                             - `visaDetails` (string)
 
                             3. Produce a single JSON response:
@@ -74,12 +72,10 @@ def process_image(image_path: str, name: str) -> str:
                             "isValid": true,
                             "message": "Uploaded a passport image",
                             "fields": {
-                                "firstName": "HAPPY",
-                                "middleName": "",
-                                "lastName": "TRAVELER",
-                                "dobDay": "1",
-                                "dobMonth": "1",
-                                "dobYear": "1981"
+                                "first_name": "HAPPY",
+                                "middle_name": "",
+                                "last_name": "TRAVELER",
+                                "dob": "1981-01-01"
                             }
                             }
                             ```
@@ -140,12 +136,10 @@ def process_pdf(temp_file_path: str, name: str) -> str:
                                 - `"message"`: a string with a message about the file status and the file to upload.
 
                             2. Extract applicant’s personal data:
-                            - `firstName` (string)
-                            - `middleName` (string)
-                            - `lastName` (string)
-                            - `dobDay` (string, 1–31)
-                            - `dobMonth` (string, 1–12)
-                            - `dobYear` (string, four digits)
+                            - `first_name` (string)
+                            - `middle_name` (string)
+                            - `last_name` (string)
+                            - `dob` (string)
                             - `visaDetails` (string)
 
                             3. Produce a single JSON response:
@@ -168,12 +162,10 @@ def process_pdf(temp_file_path: str, name: str) -> str:
                             "isValid": true,
                             "message": "Uploaded a passport file",
                             "fields": {
-                                "firstName": "HAPPY",
-                                "middleName": "",
-                                "lastName": "TRAVELER",
-                                "dobDay": "1",
-                                "dobMonth": "1",
-                                "dobYear": "1981"
+                                "first_name": "HAPPY",
+                                "middle_name": "",
+                                "last_name": "TRAVELER",
+                                "dob": "1981-01-01"
                             }
                             }
                             ```
